@@ -1,0 +1,156 @@
+<div class="contenedor">
+
+  <!-- ENCABEZADO -->
+  <header class="header">
+    <div>
+      <p class="etiqueta">SISTEMA DE ATENCIÓN MÉDICA</p>
+      <h1>{{ titulo }}</h1>
+
+      <p class="descripcion">
+        Plataforma para registrar, organizar y consultar citas médicas
+        de manera rápida y sencilla.
+      </p>
+    </div>
+
+    <button class="btn-principal" (click)="nuevaCita()">
+      + Nueva cita
+    </button>
+  </header>
+
+
+  <!-- SECCIÓN DE MÉTRICAS -->
+  <section class="metricas">
+
+    <div class="tarjeta">
+      <div class="icono">📅</div>
+
+      <div>
+        <p>Total de citas</p>
+        <h2>{{ totalCitas }}</h2>
+      </div>
+    </div>
+
+
+    <div class="tarjeta">
+      <div class="icono">✅</div>
+
+      <div>
+        <p>Confirmadas</p>
+        <h2>{{ confirmadas }}</h2>
+      </div>
+    </div>
+
+
+    <div class="tarjeta">
+      <div class="icono">⏳</div>
+
+      <div>
+        <p>Pendientes</p>
+        <h2>{{ pendientes }}</h2>
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- SECCIÓN DE CITAS -->
+  <section class="seccion-citas">
+
+    <div class="titulo-seccion">
+      <div>
+        <h2>Próximas citas</h2>
+        <p>Consulta las citas médicas registradas.</p>
+      </div>
+
+      <button class="btn-secundario" (click)="verCitas()">
+        Ver todas
+      </button>
+    </div>
+
+
+    <div class="tabla-contenedor">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Paciente</th>
+            <th>Especialidad</th>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr *ngFor="let cita of citas">
+
+            <td>
+              <strong>{{ cita.paciente }}</strong>
+            </td>
+
+            <td>{{ cita.especialidad }}</td>
+
+            <td>{{ cita.fecha }}</td>
+
+            <td>{{ cita.hora }}</td>
+
+            <td>
+              <span
+                class="estado"
+                [class.confirmada]="cita.estado === 'Confirmada'"
+                [class.pendiente]="cita.estado === 'Pendiente'">
+
+                {{ cita.estado }}
+
+              </span>
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </section>
+
+
+  <!-- SEGUNDA SECCIÓN -->
+  <section class="informacion">
+
+    <div>
+      <h2>Gestión rápida de reservas</h2>
+
+      <p>
+        Registra nuevas citas, consulta horarios y lleva el control
+        de los pacientes desde una sola pantalla.
+      </p>
+    </div>
+
+    <div class="acciones">
+
+      <button class="btn-principal" (click)="nuevaCita()">
+        Reservar cita
+      </button>
+
+      <button class="btn-secundario" (click)="verCitas()">
+        Consultar citas
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- PIE DE PÁGINA -->
+  <footer>
+    <p>
+      Desarrollado por <strong>Luis Calderón</strong> |
+      Reto práctico Angular 2026
+    </p>
+  </footer>
+
+</div>

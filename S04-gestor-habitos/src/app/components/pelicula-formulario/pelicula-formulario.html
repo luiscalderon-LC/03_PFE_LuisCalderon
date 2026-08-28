@@ -1,0 +1,51 @@
+<div class="formulario">
+
+  <h2>🎬 Nueva Película</h2>
+
+  <div class="campos">
+
+    <div class="campo">
+      <label>Título</label>
+      <input
+        type="text"
+        placeholder="Nombre de la película"
+        [(ngModel)]="titulo">
+    </div>
+
+    <div class="campo">
+      <label>Género</label>
+      <select [(ngModel)]="genero">
+        <option value="">Seleccionar género</option>
+        <option value="Acción">Acción</option>
+        <option value="Comedia">Comedia</option>
+        <option value="Drama">Drama</option>
+        <option value="Terror">Terror</option>
+        <option value="Ciencia ficción">Ciencia ficción</option>
+      </select>
+    </div>
+
+    <div class="campo">
+      <label>Año</label>
+      <input
+        type="number"
+        [(ngModel)]="anio">
+    </div>
+
+    <div class="campo">
+      <label>Calificación (1-10)</label>
+      <input
+        type="number"
+        min="1"
+        max="10"
+        [(ngModel)]="calificacion">
+    </div>
+
+  </div>
+
+  <button
+    (click)="agregarPelicula()"
+    [disabled]="titulo === '' || genero === '' || calificacion < 1 || calificacion > 10">
+    + Agregar Película
+  </button>
+
+</div>

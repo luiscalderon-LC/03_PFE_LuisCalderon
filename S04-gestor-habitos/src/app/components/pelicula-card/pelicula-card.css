@@ -1,0 +1,35 @@
+.tarjeta {
+  width: 220px;
+  padding: 18px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.08);
+}
+
+.tarjeta h3 {
+  margin-top: 0;
+  color: #252a5a;
+}
+
+.tarjeta p {
+  margin: 8px 0;
+}
+
+.recomendada {
+  border: 2px solid #3859d6;
+  background-color: #eef3ff;
+}
+
+.mensaje {
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+.recomendada-texto {
+  color: #3859d6;
+}
+
+.normal {
+  color: #555;
+}

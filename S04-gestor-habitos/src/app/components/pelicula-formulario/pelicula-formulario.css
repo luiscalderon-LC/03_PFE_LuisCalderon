@@ -1,0 +1,49 @@
+.formulario {
+  background: #f5f6fa;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 25px;
+}
+
+.formulario h2 {
+  margin-top: 0;
+  color: #252a5a;
+}
+
+.campos {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.campo label {
+  font-weight: bold;
+}
+
+input,
+select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  margin-top: 18px;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 5px;
+  background: #3859d6;
+  color: white;
+  cursor: pointer;
+}
+
+button:disabled {
+  background: #aaa;
+  cursor: not-allowed;
+}

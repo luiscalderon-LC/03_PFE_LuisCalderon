@@ -1,0 +1,36 @@
+<div
+  class="tarjeta"
+  [class.recomendada]="pelicula.calificacion >= 8">
+
+  <h3>🎬 {{ pelicula.titulo }}</h3>
+
+  <p>
+    <strong>Género:</strong>
+    {{ pelicula.genero }}
+  </p>
+
+  <p>
+    <strong>Año:</strong>
+    {{ pelicula.anio }}
+  </p>
+
+  <p>
+    <strong>Calificación:</strong>
+    ⭐ {{ pelicula.calificacion }}/10
+  </p>
+
+  @if (pelicula.calificacion >= 8) {
+
+    <p class="mensaje recomendada-texto">
+      ⭐ Muy recomendada
+    </p>
+
+  } @else {
+
+    <p class="mensaje normal">
+      🎬 Puedes verla
+    </p>
+
+  }
+
+</div>

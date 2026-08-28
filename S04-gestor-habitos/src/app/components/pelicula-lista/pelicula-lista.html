@@ -1,0 +1,27 @@
+<section class="catalogo">
+
+  <h2>🎞️ Mi Catálogo</h2>
+
+  @if (peliculas.length === 0) {
+
+    <div class="vacio">
+      <p>🎬 Todavía no has agregado películas.</p>
+    </div>
+
+  } @else {
+
+    <div class="lista">
+
+      @for (pelicula of peliculas; track pelicula.titulo) {
+
+        <app-pelicula-card
+          [pelicula]="pelicula">
+        </app-pelicula-card>
+
+      }
+
+    </div>
+
+  }
+
+</section>

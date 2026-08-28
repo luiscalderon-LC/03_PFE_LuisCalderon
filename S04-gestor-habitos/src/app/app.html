@@ -1,0 +1,29 @@
+<header class="encabezado">
+
+  <div class="logo">
+    🎬 CINE "LC"
+  </div>
+
+  <div class="texto-header">
+    Catálogo de Películas
+  </div>
+
+</header>
+
+<main class="contenedor">
+
+  <h1>🎬 Catálogo de Películas</h1>
+
+  <p class="descripcion">
+    Registra tus películas favoritas y coloca una calificación del 1 al 10.
+  </p>
+
+  <app-pelicula-formulario
+    (peliculaAgregada)="agregarPelicula($event)">
+  </app-pelicula-formulario>
+
+  <app-pelicula-lista
+    [peliculas]="peliculas">
+  </app-pelicula-lista>
+
+</main>

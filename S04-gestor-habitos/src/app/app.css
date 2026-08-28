@@ -1,0 +1,40 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #fafafa;
+}
+
+.encabezado {
+  background-color: #252a5a;
+  color: white;
+  padding: 18px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.texto-header {
+  font-size: 15px;
+}
+
+.contenedor {
+  max-width: 1100px;
+  margin: 30px auto;
+  padding: 0 20px;
+}
+
+h1 {
+  color: #252a5a;
+  margin-bottom: 5px;
+}
+
+.descripcion {
+  color: #666;
+  margin-bottom: 25px;
+}

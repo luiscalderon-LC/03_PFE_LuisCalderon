@@ -1,0 +1,76 @@
+<app-navbar></app-navbar>
+
+
+<main
+  class="contenedor"
+  id="inicio">
+
+
+  <section class="presentacion">
+
+    <div>
+
+      <span class="etiqueta">
+        SISTEMA DE CLIENTES
+      </span>
+
+      <h1>
+        👥 Gestión de Clientes
+      </h1>
+
+      <p>
+        En este Sistema se podra registrar,
+        visualizar, editar y eliminar clientes.
+      </p>
+
+    </div>
+
+
+    <div class="resumen">
+
+      <span>
+        Total registrados
+      </span>
+
+      <strong>
+        {{ clientes.length }}
+      </strong>
+
+    </div>
+
+  </section>
+
+
+  <app-cliente-formulario
+
+    [clienteEditar]="clienteSeleccionado"
+
+    (guardar)="guardarCliente($event)"
+
+    (cancelar)="cancelarEdicion()">
+
+  </app-cliente-formulario>
+
+
+  <app-cliente-lista
+
+    [clientes]="clientes"
+
+    (editar)="editarCliente($event)"
+
+    (eliminar)="eliminarCliente($event)">
+
+  </app-cliente-lista>
+
+
+</main>
+
+
+<footer>
+
+  <p>
+    Sistema de Gestión de Clientes
+    Desarrollado por Luis Calderón⚽⚽⚽
+  </p>
+
+</footer>

@@ -1,0 +1,46 @@
+<section class="seccion" id="clientes">
+
+  <div class="titulo">
+
+    <div>
+      <h2>📋 Lista de Clientes</h2>
+
+      <p>
+        Clientes registrados actualmente en el sistema.
+      </p>
+    </div>
+
+    <div class="contador">
+      {{ clientes.length }} clientes
+    </div>
+
+  </div>
+
+
+  <div
+    class="lista"
+    *ngIf="clientes.length > 0">
+
+    <app-cliente-card
+      *ngFor="let cliente of clientes"
+      [cliente]="cliente"
+      (editar)="editarCliente($event)"
+      (eliminar)="eliminarCliente($event)">
+    </app-cliente-card>
+
+  </div>
+
+
+  <div
+    class="sin-clientes"
+    *ngIf="clientes.length === 0">
+
+    <h3>😕 No existen clientes</h3>
+
+    <p>
+      Registra un cliente utilizando el formulario.
+    </p>
+
+  </div>
+
+</section>

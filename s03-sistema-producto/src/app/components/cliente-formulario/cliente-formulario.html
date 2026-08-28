@@ -1,0 +1,118 @@
+<section class="formulario-seccion" id="formulario">
+
+  <div class="titulo">
+
+    <h2>
+      {{ formulario.id === 0
+        ? '➕ Registrar Cliente'
+        : '✏️ Editar Cliente'
+      }}
+    </h2>
+
+    <p>
+      Ingresa los datos solicitados para guardar el cliente.
+    </p>
+
+  </div>
+
+
+  <form
+    class="formulario"
+    (ngSubmit)="guardarCliente()">
+
+
+    <div class="campo">
+
+      <label>Nombre</label>
+
+      <input
+        type="text"
+        name="nombre"
+        [(ngModel)]="formulario.nombre"
+        placeholder="Ejemplo: María">
+
+    </div>
+
+
+    <div class="campo">
+
+      <label>Apellido</label>
+
+      <input
+        type="text"
+        name="apellido"
+        [(ngModel)]="formulario.apellido"
+        placeholder="Ejemplo: Torres">
+
+    </div>
+
+
+    <div class="campo">
+
+      <label>Correo</label>
+
+      <input
+        type="email"
+        name="correo"
+        [(ngModel)]="formulario.correo"
+        placeholder="cliente@gmail.com">
+
+    </div>
+
+
+    <div class="campo">
+
+      <label>Teléfono</label>
+
+      <input
+        type="text"
+        name="telefono"
+        [(ngModel)]="formulario.telefono"
+        placeholder="987654321">
+
+    </div>
+
+
+    <div class="campo campo-completo">
+
+      <label>Ciudad</label>
+
+      <input
+        type="text"
+        name="ciudad"
+        [(ngModel)]="formulario.ciudad"
+        placeholder="Ejemplo: Lima">
+
+    </div>
+
+
+    <div class="botones campo-completo">
+
+      <button
+        type="submit"
+        class="btn-guardar">
+
+        💾
+        {{ formulario.id === 0
+          ? 'Registrar Cliente'
+          : 'Guardar Cambios'
+        }}
+
+      </button>
+
+
+      <button
+        *ngIf="formulario.id !== 0"
+        type="button"
+        class="btn-cancelar"
+        (click)="cancelarEdicion()">
+
+        Cancelar
+
+      </button>
+
+    </div>
+
+  </form>
+
+</section>

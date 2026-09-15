@@ -1,0 +1,200 @@
+<div class="pagina">
+
+  <header class="encabezado">
+    <div>
+      <h1>🎬 Catálogo de Películas</h1>
+      <p>Explora y administra tus películas favoritas</p>
+    </div>
+
+    <div class="usuario">
+      🎥 Películas
+    </div>
+  </header>
+
+  <main class="contenido">
+
+    <section class="panel">
+
+      <div class="cabecera-panel">
+
+        <div class="titulo-panel">
+          <h2>Mis películas</h2>
+          <p>Lista de películas disponibles</p>
+        </div>
+
+        <button class="btn-nueva" (click)="abrirFormulario()">
+          + Nueva película
+        </button>
+
+      </div>
+
+      <div class="resumen">
+
+        <div class="resumen-card">
+          <span class="icono">🎞️</span>
+
+          <div>
+            <strong>{{ peliculas.length }}</strong>
+            <p>Total</p>
+          </div>
+        </div>
+
+        <div class="resumen-card">
+          <span class="icono">⭐</span>
+
+          <div>
+            <strong>9 - 10</strong>
+            <p>Muy recomendadas</p>
+          </div>
+        </div>
+
+        <div class="resumen-card">
+          <span class="icono">👍</span>
+
+          <div>
+            <strong>8</strong>
+            <p>Recomendadas</p>
+          </div>
+        </div>
+
+      </div>
+
+
+      <!-- FORMULARIO -->
+
+      @if (mostrarFormulario) {
+
+        <div class="formulario">
+
+          <h3>Agregar nueva película</h3>
+
+          <div class="campos">
+
+            <div class="campo">
+              <label>Título</label>
+
+              <input
+                type="text"
+                [(ngModel)]="nuevaPelicula.titulo"
+                placeholder="Ejemplo: Avatar">
+            </div>
+
+
+            <div class="campo">
+              <label>Género</label>
+
+              <input
+                type="text"
+                [(ngModel)]="nuevaPelicula.genero"
+                placeholder="Ejemplo: Ciencia ficción">
+            </div>
+
+
+            <div class="campo">
+              <label>Año</label>
+
+              <input
+                type="number"
+                [(ngModel)]="nuevaPelicula.anio">
+            </div>
+
+
+            <div class="campo">
+              <label>Calificación</label>
+
+              <input
+                type="number"
+                min="1"
+                max="10"
+                [(ngModel)]="nuevaPelicula.calificacion">
+            </div>
+
+          </div>
+
+          <div class="botones-formulario">
+
+            <button
+              class="btn-cancelar"
+              (click)="cancelar()">
+              Cancelar
+            </button>
+
+            <button
+              class="btn-agregar"
+              (click)="agregarPelicula()">
+              Agregar película
+            </button>
+
+          </div>
+
+        </div>
+
+      }
+
+
+      <!-- LISTA -->
+
+      <div class="lista">
+
+        @for (pelicula of peliculas; track pelicula.titulo) {
+
+          <div class="pelicula">
+
+            <div class="pelicula-info">
+
+              <div class="pelicula-icono">
+                🎬
+              </div>
+
+              <div>
+
+                <h3>{{ pelicula.titulo }}</h3>
+
+                <p>
+                  {{ pelicula.genero }} • {{ pelicula.anio }}
+                </p>
+
+                <span class="calificacion">
+                  ⭐ {{ pelicula.calificacion }}/10
+                </span>
+
+              </div>
+
+            </div>
+
+
+            <div class="estado">
+
+              @if (pelicula.calificacion >= 9) {
+
+                <span class="excelente">
+                  Muy recomendada
+                </span>
+
+              } @else if (pelicula.calificacion >= 8) {
+
+                <span class="recomendada">
+                  Recomendada
+                </span>
+
+              } @else {
+
+                <span class="buena">
+                  Buena película
+                </span>
+
+              }
+
+            </div>
+
+          </div>
+
+        }
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>

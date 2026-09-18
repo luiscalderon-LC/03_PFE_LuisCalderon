@@ -1,0 +1,118 @@
+<div class="contenedor">
+
+  <header class="encabezado">
+
+  <div class="titulo-header">
+    <span class="etiqueta">📚 API REST · GET + POST</span>
+
+    <h1>Biblioteca Digital 💻</h1>
+
+    <p>
+      Consulta y registro de libros mediante una API REST
+    </p>
+  </div>
+
+  <!-- Tarjeta del desarrollador -->
+  <div class="autor-card">
+    <div class="autor-icono">👨‍💻</div>
+
+    <div>
+      <span class="autor-label">DESARROLLADO POR</span>
+      <h3>Luis Calderón ✓👻✓</h3>
+      <p>Explora, aprende y descubre 📖👨‍💻</p>
+    </div>
+  </div>
+
+</header>
+
+  <!-- FORMULARIO -->
+  <section class="formulario">
+    <h2>Registrar Libro</h2>
+
+    <div class="campos">
+
+      <div class="campo">
+        <label>Título</label>
+        <input
+          type="text"
+          [(ngModel)]="nuevoLibro.title"
+          placeholder="Ej. Don Quijote">
+      </div>
+
+      <div class="campo">
+        <label>Autor</label>
+        <input
+          type="text"
+          [(ngModel)]="nuevoLibro.author"
+          placeholder="Ej. Miguel de Cervantes">
+      </div>
+
+      <div class="campo">
+        <label>Año</label>
+        <input
+          type="number"
+          [(ngModel)]="nuevoLibro.year"
+          placeholder="Ej. 1605">
+      </div>
+
+      <div class="campo">
+        <label>URL de portada</label>
+        <input
+          type="text"
+          [(ngModel)]="nuevoLibro.image"
+          placeholder="https://...">
+      </div>
+
+      <button
+        type="button"
+        class="boton"
+        (click)="registrarLibro()">
+        Registrar
+      </button>
+
+    </div>
+
+    <p class="mensaje" *ngIf="mensaje()">
+      {{ mensaje() }}
+    </p>
+
+  </section>
+
+  <!-- LISTADO -->
+  <section class="seccion-lista">
+
+    <h2>Lista de Libros</h2>
+
+    <p *ngIf="cargando()" class="cargando">
+      Cargando libros...
+    </p>
+
+    <div class="libros" *ngIf="!cargando()">
+
+      <div class="libro" *ngFor="let libro of libros()">
+
+        <img
+          [src]="libro.image"
+          [alt]="libro.title">
+
+        <div class="informacion">
+          <h3>{{ libro.title }}</h3>
+
+          <p>
+            <strong>Autor:</strong>
+            {{ libro.author }}
+          </p>
+
+          <p>
+            <strong>Año:</strong>
+            {{ libro.year }}
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</div>

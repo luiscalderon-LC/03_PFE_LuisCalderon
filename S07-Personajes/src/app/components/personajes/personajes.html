@@ -1,0 +1,290 @@
+<div class="contenedor">
+
+  <!-- ENCABEZADO -->
+  <header class="encabezado">
+
+  <div class="info-header">
+    <span class="etiqueta">API REST · CRUD COMPLETO</span>
+
+    <h1>Gestión de Personajes</h1>
+
+    <p>
+      Administra personajes mediante Angular y una API REST pública.
+    </p>
+  </div>
+
+  <!-- PRESENTACIÓN DEL DESARROLLADOR -->
+  <div class="presentacion">
+
+    <div class="icono-dev">
+      👨‍💻
+    </div>
+
+    <div class="datos-dev">
+      <span>DESARROLLADO POR</span>
+      <h3>Luis Calderón 👻</h3>
+      <p>Instituto - Valle Grande 🗒️</p>
+    </div>
+
+  </div>
+
+</header>
+
+
+  <main class="contenido">
+
+    <!-- ========================= -->
+    <!-- FORMULARIO -->
+    <!-- ========================= -->
+
+    <section class="formulario">
+
+      <h2>
+        {{ editando ? 'Editar personaje' : 'Registrar personaje' }}
+      </h2>
+
+      <form>
+
+        <!-- NOMBRE -->
+        <div class="campo">
+          <label>Nombre y Apellido</label>
+
+          <input
+            type="text"
+            name="nombre"
+            [(ngModel)]="personaje.nombre"
+            placeholder="Ej. Spider-Man"
+            required>
+        </div>
+
+
+        <!-- ESPECIE -->
+        <div class="campo">
+          <label>Especie</label>
+
+          <input
+            type="text"
+            name="especie"
+            [(ngModel)]="personaje.especie"
+            placeholder="Ej. Humano"
+            required>
+        </div>
+
+
+        <!-- GÉNERO -->
+        <div class="campo">
+          <label>Género</label>
+
+          <select
+            name="genero"
+            [(ngModel)]="personaje.genero"
+            required>
+
+            <option value="">Seleccione</option>
+            <option value="Masculino">Masculino</option>
+            <option value="Femenino">Femenino</option>
+            <option value="Otro">Otro</option>
+
+          </select>
+        </div>
+
+
+        <!-- ESTADO -->
+        <div class="campo">
+          <label>Estado</label>
+
+          <select
+            name="estado"
+            [(ngModel)]="personaje.estado"
+            required>
+
+            <option value="">Seleccione</option>
+            <option value="Activo">Activo</option>
+            <option value="Inactivo">Inactivo</option>
+            <option value="Desconocido">Desconocido</option>
+
+          </select>
+        </div>
+
+
+        <!-- IMAGEN -->
+        <div class="campo">
+          <label>URL de imagen</label>
+
+          <input
+            type="url"
+            name="imagen"
+            [(ngModel)]="personaje.imagen"
+            placeholder="https://ejemplo.com/personaje.jpg">
+        </div>
+
+
+        <!-- BOTONES -->
+        <div class="acciones-formulario">
+
+          <button
+            type="button"
+            class="btn-guardar"
+            (click)="guardarPersonaje()">
+
+            {{ editando ? 'Guardar cambios' : 'Registrar personaje' }}
+
+          </button>
+
+
+          <button
+            *ngIf="editando"
+            type="button"
+            class="btn-cancelar"
+            (click)="cancelarEdicion()">
+
+            Cancelar
+
+          </button>
+
+        </div>
+
+      </form>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- LISTADO -->
+    <!-- ========================= -->
+
+    <section class="listado">
+
+      <div class="titulo-listado">
+
+        <div>
+          <span class="subtitulo">
+            GET /personajes
+          </span>
+
+          <h2>
+            Personajes registrados
+          </h2>
+        </div>
+
+        <span class="contador">
+          {{ personajes.length }} registros
+        </span>
+
+      </div>
+
+
+      <!-- SIN REGISTROS -->
+
+      <div
+        class="sin-registros"
+        *ngIf="personajes.length === 0">
+
+        <h3>
+          No hay personajes registrados
+        </h3>
+
+        <p>
+          Utiliza el formulario para registrar el primer personaje.
+        </p>
+
+      </div>
+
+
+      <!-- ========================= -->
+      <!-- TARJETAS -->
+      <!-- ========================= -->
+
+      <div
+        class="tarjetas"
+        *ngIf="personajes.length > 0">
+
+        <article
+          class="tarjeta"
+          *ngFor="let item of personajes">
+
+
+          <!-- IMAGEN -->
+
+          <div class="imagen-personaje">
+
+            <img
+              *ngIf="item.imagen"
+              [src]="item.imagen"
+              [alt]="item.nombre">
+
+            <div
+              class="sin-imagen"
+              *ngIf="!item.imagen">
+
+              {{ item.nombre.charAt(0).toUpperCase() }}
+
+            </div>
+
+          </div>
+
+
+          <!-- INFORMACIÓN -->
+
+          <div class="datos-personaje">
+
+            <span class="id-personaje">
+              ID: {{ item.id }}
+            </span>
+
+            <h3>
+              {{ item.nombre }}
+            </h3>
+
+            <p>
+              <strong>Especie:</strong>
+              {{ item.especie }}
+            </p>
+
+            <p>
+              <strong>Género:</strong>
+              {{ item.genero }}
+            </p>
+
+            <p>
+              <strong>Estado:</strong>
+              {{ item.estado }}
+            </p>
+
+          </div>
+
+
+          <!-- ACCIONES -->
+
+          <div class="acciones">
+
+            <button
+              type="button"
+              class="btn-editar"
+              (click)="editarPersonaje(item)">
+
+              Editar
+
+            </button>
+
+
+            <button
+              type="button"
+              class="btn-eliminar"
+              (click)="eliminarPersonaje(item.id!)">
+
+              Eliminar
+
+            </button>
+
+          </div>
+
+        </article>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>

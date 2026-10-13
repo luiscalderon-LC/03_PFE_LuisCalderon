@@ -1,0 +1,537 @@
+
+/* ==========================================
+   S08 - SISTEMA DE INSCRIPCION A TALLERES
+   Instituto Valle Grande
+   ========================================== */
+
+/* ESTILOS GENERALES */
+
+:host {
+  display: block;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #334155;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.contenedor {
+  min-height: 100vh;
+  background-color: #f4f7f9;
+}
+
+/* ==========================================
+   ENCABEZADO
+   ========================================== */
+
+.encabezado {
+  background-color: #164e63;
+  color: white;
+  padding: 35px 7%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.encabezado-contenido {
+  max-width: 750px;
+}
+
+.instituto {
+  color: #a5e5ef;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin: 0 0 12px;
+}
+
+.encabezado h1 {
+  font-size: 29px;
+  margin: 0 0 12px;
+  font-weight: 700;
+}
+
+.encabezado-contenido > p:last-child {
+  font-size: 14px;
+  color: #d9edf2;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.etiqueta-header {
+  background-color: #f97316;
+  color: white;
+  padding: 10px 17px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+/* ==========================================
+   CONTENIDO PRINCIPAL
+   ========================================== */
+
+.contenido {
+  width: 90%;
+  max-width: 1250px;
+  margin: 35px auto;
+}
+
+.tarjeta {
+  background-color: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 9px;
+  padding: 28px;
+  margin-bottom: 25px;
+}
+
+.titulo-seccion {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.titulo-seccion h2 {
+  font-size: 21px;
+  color: #164e63;
+  margin: 0 0 8px;
+}
+
+.titulo-seccion p {
+  font-size: 13px;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ==========================================
+   FORMULARIO
+   ========================================== */
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.campo label {
+  font-size: 13px;
+  color: #334155;
+  font-weight: bold;
+}
+
+.campo input:not([type="radio"]),
+.campo select {
+  width: 100%;
+  height: 43px;
+  border: 1px solid #cbd5e1;
+  border-radius: 5px;
+  padding: 0 12px;
+  font-size: 13px;
+  font-family: inherit;
+  color: #334155;
+  background-color: #fff;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.campo input::placeholder {
+  color: #94a3b8;
+}
+
+.campo input:focus,
+.campo select:focus {
+  border-color: #0891b2;
+  box-shadow: 0 0 0 2px rgba(8, 145, 178, 0.1);
+}
+
+.campo select {
+  cursor: pointer;
+}
+
+.error {
+  font-size: 12px;
+  color: #dc2626;
+}
+
+/* OPCIONES DE TURNO */
+
+.opciones-turno {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  min-height: 43px;
+  flex-wrap: wrap;
+}
+
+.opcion-radio {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-weight: normal !important;
+}
+
+.opcion-radio input {
+  accent-color: #0891b2;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+/* ==========================================
+   BOTONES DEL FORMULARIO
+   ========================================== */
+
+.acciones-formulario {
+  display: flex;
+  gap: 12px;
+  margin-top: 28px;
+  flex-wrap: wrap;
+}
+
+.btn-registrar,
+.btn-limpiar {
+  border: none;
+  padding: 12px 22px;
+  border-radius: 5px;
+  font-size: 13px;
+  font-family: inherit;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-registrar {
+  background-color: #0891b2;
+  color: white;
+}
+
+.btn-registrar:hover:not(:disabled) {
+  background-color: #0e7490;
+}
+
+.btn-registrar:disabled {
+  background-color: #a3c9d1;
+  cursor: not-allowed;
+}
+
+.btn-limpiar {
+  background-color: #e2e8f0;
+  color: #475569;
+}
+
+.btn-limpiar:hover {
+  background-color: #cbd5e1;
+}
+
+/* MENSAJE DE CONFIRMACION */
+
+.mensaje {
+  margin-top: 20px;
+  padding: 13px 16px;
+  background-color: #e0f2fe;
+  border-left: 4px solid #0891b2;
+  border-radius: 4px;
+  color: #155e75;
+  font-size: 13px;
+}
+
+/* ==========================================
+   INDICADORES
+   ========================================== */
+
+.indicadores {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 25px;
+}
+
+.indicador {
+  background-color: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 23px;
+  border-left: 4px solid #0891b2;
+}
+
+.indicador-total {
+  border-left-color: #f97316;
+}
+
+.indicador p {
+  font-size: 13px;
+  font-weight: bold;
+  color: #475569;
+  margin: 0 0 12px;
+}
+
+.indicador h3 {
+  font-size: 32px;
+  color: #164e63;
+  margin: 0 0 8px;
+}
+
+.indicador span {
+  color: #64748b;
+  font-size: 12px;
+}
+
+/* ==========================================
+   TABLA DE PARTICIPANTES
+   ========================================== */
+
+.contador {
+  background-color: #e0f2fe;
+  color: #155e75;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 8px 13px;
+  border-radius: 5px;
+  white-space: nowrap;
+}
+
+.tabla-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  text-align: left;
+}
+
+thead {
+  background-color: #164e63;
+  color: white;
+}
+
+th {
+  padding: 14px 12px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+td {
+  padding: 13px 12px;
+  border-bottom: 1px solid #e2e8f0;
+  color: #475569;
+  white-space: nowrap;
+}
+
+tbody tr:hover {
+  background-color: #f8fafc;
+}
+
+.nombre-participante {
+  font-weight: bold;
+  color: #334155;
+}
+
+/* ==========================================
+   ESTADOS DE PARTICIPANTES
+   ========================================== */
+
+.select-estado {
+  border: none;
+  border-radius: 5px;
+  padding: 7px 8px;
+  font-size: 12px;
+  font-weight: bold;
+  font-family: inherit;
+  cursor: pointer;
+  outline: none;
+}
+
+.estado-activo {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.estado-inactivo {
+  background-color: #e5e7eb;
+  color: #4b5563;
+}
+
+.estado-pendiente {
+  background-color: #ffedd5;
+  color: #9a3412;
+}
+
+/* FILA INACTIVA */
+
+.fila-inactiva .nombre-participante {
+  color: #94a3b8;
+}
+
+.fila-inactiva td {
+  background-color: #fafafa;
+}
+
+/* ==========================================
+   BOTON ELIMINAR
+   ========================================== */
+
+.btn-eliminar {
+  background-color: #fff1f2;
+  color: #be123c;
+  border: 1px solid #fecdd3;
+  border-radius: 5px;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-eliminar:hover {
+  background-color: #ffe4e6;
+}
+
+/* ==========================================
+   TABLA VACIA
+   ========================================== */
+
+.sin-registros {
+  text-align: center;
+  padding: 45px 15px;
+  background-color: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  border-radius: 7px;
+}
+
+.sin-registros h3 {
+  font-size: 16px;
+  color: #475569;
+  margin: 0 0 10px;
+}
+
+.sin-registros p {
+  font-size: 13px;
+  color: #94a3b8;
+  margin: 0;
+}
+
+/* ==========================================
+   PIE DE PAGINA
+   ========================================== */
+
+.pie-pagina {
+  background-color: #164e63;
+  color: #d9edf2;
+  padding: 23px 7%;
+  text-align: center;
+  font-size: 12px;
+}
+
+.pie-pagina p {
+  margin: 5px 0;
+}
+
+/* ==========================================
+   DISEÑO RESPONSIVO - TABLET
+   ========================================== */
+
+@media (max-width: 900px) {
+
+  .encabezado {
+    padding: 30px 5%;
+  }
+
+  .contenido {
+    width: 94%;
+  }
+
+  .tarjeta {
+    padding: 22px;
+  }
+
+  .indicadores {
+    gap: 12px;
+  }
+
+  .indicador {
+    padding: 18px;
+  }
+
+}
+
+/* ==========================================
+   DISEÑO RESPONSIVO - CELULAR
+   ========================================== */
+
+@media (max-width: 600px) {
+
+  .encabezado {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 27px 20px;
+  }
+
+  .encabezado h1 {
+    font-size: 23px;
+  }
+
+  .contenido {
+    width: 94%;
+    margin: 20px auto;
+  }
+
+  .tarjeta {
+    padding: 18px;
+  }
+
+  .titulo-seccion {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .titulo-seccion h2 {
+    font-size: 19px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 17px;
+  }
+
+  .acciones-formulario {
+    flex-direction: column;
+  }
+
+  .btn-registrar,
+  .btn-limpiar {
+    width: 100%;
+  }
+
+  .indicadores {
+    grid-template-columns: 1fr;
+  }
+
+  .indicador {
+    padding: 20px;
+  }
+
+  .contador {
+    align-self: flex-start;
+  }
+
+  .pie-pagina {
+    padding: 20px;
+  }
+
+}

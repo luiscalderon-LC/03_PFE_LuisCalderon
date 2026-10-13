@@ -1,0 +1,314 @@
+
+<div class="contenedor">
+
+  <!-- ENCABEZADO -->
+  <header class="encabezado">
+    <div class="encabezado-contenido">
+      <p class="instituto">INSTITUTO VALLE GRANDE</p>
+      <h1>Sistema de Inscripción a Talleres</h1>
+      <p>Registra y administra a los participantes de nuestros talleres tecnológicos.</p>
+    </div>
+    <span class="etiqueta-header">Talleres LC ☑️</span>
+  </header>
+
+  <main class="contenido">
+
+    <!-- FORMULARIO DE INSCRIPCIÓN -->
+    <section class="tarjeta formulario-seccion">
+
+      <div class="titulo-seccion">
+        <div>
+          <h2>Registro de participantes</h2>
+          <p>Completa los siguientes datos para realizar una inscripción.</p>
+        </div>
+      </div>
+
+      <form #formInscripcion="ngForm"
+            (ngSubmit)="registrarParticipante(); formInscripcion.resetForm({turno: 'Mañana', estado: 'Activo'})">
+
+        <div class="form-grid">
+
+          <!-- NOMBRE -->
+          <div class="campo">
+            <label for="nombre">Nombre completo *</label>
+            <input
+              id="nombre"
+              type="text"
+              name="nombre"
+              [(ngModel)]="nuevoParticipante.nombre"
+              #nombre="ngModel"
+              required
+              minlength="3"
+              placeholder="Ej. Carlos Ramírez">
+
+            <small class="error"
+              *ngIf="nombre.invalid && (nombre.touched || formInscripcion.submitted)">
+              Ingresa un nombre de al menos 3 caracteres.
+            </small>
+          </div>
+
+          <!-- CORREO -->
+          <div class="campo">
+            <label for="correo">Correo institucional *</label>
+            <input
+              id="correo"
+              type="email"
+              name="correo"
+              [(ngModel)]="nuevoParticipante.correo"
+              #correo="ngModel"
+              required
+              email
+              placeholder="ejemplo@vallegrande.edu.pe">
+
+            <small class="error"
+              *ngIf="correo.invalid && (correo.touched || formInscripcion.submitted)">
+              Ingresa un correo electrónico válido.
+            </small>
+          </div>
+
+          <!-- ESPECIALIDAD -->
+          <div class="campo">
+            <label for="especialidad">Especialidad *</label>
+            <select
+              id="especialidad"
+              name="especialidad"
+              [(ngModel)]="nuevoParticipante.especialidad"
+              required>
+
+              <option value="" disabled>Selecciona una especialidad</option>
+
+              <option *ngFor="let especialidad of especialidades"
+                      [value]="especialidad">
+                {{ especialidad }}
+              </option>
+
+            </select>
+          </div>
+
+          <!-- MODALIDAD -->
+          <div class="campo">
+            <label for="modalidad">Modalidad *</label>
+            <select
+              id="modalidad"
+              name="modalidad"
+              [(ngModel)]="nuevoParticipante.modalidad"
+              required>
+
+              <option value="" disabled>Selecciona una modalidad</option>
+
+              <option *ngFor="let modalidad of modalidades"
+                      [value]="modalidad">
+                {{ modalidad }}
+              </option>
+
+            </select>
+          </div>
+
+          <!-- NIVEL -->
+          <div class="campo">
+            <label for="experiencia">Nivel de experiencia *</label>
+            <select
+              id="experiencia"
+              name="experiencia"
+              [(ngModel)]="nuevoParticipante.experiencia"
+              required>
+
+              <option value="" disabled>Selecciona tu nivel</option>
+
+              <option *ngFor="let nivel of niveles"
+                      [value]="nivel">
+                {{ nivel }}
+              </option>
+
+            </select>
+          </div>
+
+          <!-- TURNO -->
+          <div class="campo">
+            <label>Turno *</label>
+
+            <div class="opciones-turno">
+              <label class="opcion-radio">
+                <input
+                  type="radio"
+                  name="turno"
+                  value="Mañana"
+                  [(ngModel)]="nuevoParticipante.turno">
+                Mañana
+              </label>
+
+              <label class="opcion-radio">
+                <input
+                  type="radio"
+                  name="turno"
+                  value="Noche"
+                  [(ngModel)]="nuevoParticipante.turno">
+                Noche
+              </label>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- BOTONES -->
+        <div class="acciones-formulario">
+          <button
+            type="submit"
+            class="btn-registrar"
+            [disabled]="formInscripcion.invalid">
+            Registrar participante
+          </button>
+
+          <button
+            type="button"
+            class="btn-limpiar"
+            (click)="limpiarFormulario(); formInscripcion.resetForm({turno: 'Mañana', estado: 'Activo'})">
+            Limpiar campos
+          </button>
+        </div>
+
+      </form>
+
+      <!-- MENSAJE -->
+      <div class="mensaje"
+           *ngIf="mensaje">
+        {{ mensaje }}
+      </div>
+
+    </section>
+
+    <!-- INDICADORES -->
+    <section class="indicadores">
+
+      <div class="indicador indicador-total">
+        <p>Total de inscritos</p>
+        <h3>{{ totalInscritos }}</h3>
+        <span>Participantes registrados</span>
+      </div>
+
+      <div class="indicador">
+        <p>Turno mañana</p>
+        <h3>{{ totalManana }}</h3>
+        <span>Inscripciones en la mañana</span>
+      </div>
+
+      <div class="indicador">
+        <p>Turno noche</p>
+        <h3>{{ totalNoche }}</h3>
+        <span>Inscripciones en la noche</span>
+      </div>
+
+    </section>
+
+    <!-- TABLA DE PARTICIPANTES -->
+    <section class="tarjeta tabla-seccion">
+
+      <div class="titulo-seccion">
+        <div>
+          <h2>Participantes inscritos</h2>
+          <p>Consulta y administra las inscripciones realizadas.</p>
+        </div>
+        <span class="contador">
+          {{ totalInscritos }} registros
+        </span>
+      </div>
+
+      <!-- MENSAJE CUANDO NO HAY PARTICIPANTES -->
+      <div class="sin-registros"
+           *ngIf="participantes.length === 0">
+
+        <h3>No hay participantes registrados</h3>
+        <p>Completa el formulario para agregar tu primera inscripción.</p>
+
+      </div>
+
+      <!-- TABLA -->
+      <div class="tabla-responsive"
+           *ngIf="participantes.length > 0">
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>N.º</th>
+              <th>Nombre</th>
+              <th>Correo</th>
+              <th>Especialidad</th>
+              <th>Turno</th>
+              <th>Modalidad</th>
+              <th>Nivel</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            <tr *ngFor="let participante of participantes; let i = index"
+                [class.fila-inactiva]="participante.estado === 'Inactivo'">
+
+              <td>{{ i + 1 }}</td>
+
+              <td class="nombre-participante">
+                {{ participante.nombre }}
+              </td>
+
+              <td>{{ participante.correo }}</td>
+
+              <td>{{ participante.especialidad }}</td>
+
+              <td>{{ participante.turno }}</td>
+
+              <td>{{ participante.modalidad }}</td>
+
+              <td>{{ participante.experiencia }}</td>
+
+              <!-- ESTADO CON COLOR DINÁMICO -->
+              <td>
+                <select
+                  class="select-estado"
+                  [ngClass]="{
+                    'estado-activo': participante.estado === 'Activo',
+                    'estado-inactivo': participante.estado === 'Inactivo',
+                    'estado-pendiente': participante.estado === 'Pendiente'
+                  }"
+                  [ngModel]="participante.estado"
+                  (ngModelChange)="cambiarEstado(participante, $event)">
+
+                  <option *ngFor="let estado of estados"
+                          [value]="estado">
+                    {{ estado }}
+                  </option>
+
+                </select>
+              </td>
+
+              <!-- ELIMINAR -->
+              <td>
+                <button
+                  type="button"
+                  class="btn-eliminar"
+                  (click)="eliminarParticipante(i)">
+                  Eliminar
+                </button>
+              </td>
+
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- PIE DE PÁGINA -->
+  <footer class="pie-pagina">
+    <p>Sistema de Inscripción a Talleres - Instituto Valle Grande</p>
+    <p>Actividad Individual S08 | Luis Calderón 👻</p>
+  </footer>
+
+</div>

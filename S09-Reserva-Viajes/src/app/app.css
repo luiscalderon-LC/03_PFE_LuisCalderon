@@ -1,0 +1,624 @@
+
+:host {
+  display: block;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #26384a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* ENCABEZADO */
+
+.encabezado {
+  background: #173a55;
+  color: white;
+  padding: 20px 6% 16px;
+}
+
+.barra {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.marca {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.marca-icono {
+  width: 48px;
+  height: 48px;
+  background: #2d7299;
+  border-radius: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 27px;
+}
+
+.marca h2 {
+  margin: 0;
+  color: white;
+  font-size: 21px;
+}
+
+.marca p {
+  margin: 5px 0 0;
+  color: #c7dce9;
+  font-size: 12px;
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+nav a {
+  color: #e8f2f8;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+nav a:hover {
+  color: #91d0f2;
+}
+
+/* TEXTO EN MOVIMIENTO */
+
+.marquesina {
+  position: relative;
+  width: 370px;
+  max-width: 100%;
+  height: 38px;
+  margin-top: 17px;
+  overflow: hidden;
+  border-radius: 7px;
+  border: 1px solid #40718e;
+  background: #224e6b;
+}
+
+.marquesina span {
+  position: absolute;
+  left: 0;
+  top: 11px;
+  color: #e8f5ff;
+  font-size: 12px;
+  white-space: nowrap;
+  animation: moverTexto 10s linear infinite;
+}
+
+@keyframes moverTexto {
+  from {
+    transform: translateX(370px);
+  }
+
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+/* CONTENIDO PRINCIPAL */
+
+.contenedor {
+  max-width: 1180px;
+  margin: auto;
+  padding: 38px 20px;
+}
+
+.bienvenida {
+  margin-bottom: 30px;
+}
+
+.etiqueta {
+  display: inline-block;
+  background: #e4f1fa;
+  color: #28749d;
+  padding: 7px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+
+.bienvenida h1 {
+  font-size: 31px;
+  color: #173a55;
+  margin: 15px 0 10px;
+}
+
+.bienvenida p {
+  font-size: 15px;
+  color: #6b8092;
+  line-height: 1.6;
+}
+
+/* TARJETAS */
+
+.tarjeta {
+  background: white;
+  border: 1px solid #dfe8ef;
+  border-radius: 12px;
+  padding: 28px;
+  margin-bottom: 28px;
+  box-shadow: 0 5px 18px rgba(29, 65, 91, 0.05);
+}
+
+.titulo-seccion {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 15px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #e8edf2;
+}
+
+.titulo-seccion h2 {
+  font-size: 21px;
+  color: #173a55;
+  margin: 0 0 9px;
+}
+
+.titulo-seccion p {
+  font-size: 13px;
+  color: #7b8d9b;
+  margin: 0;
+}
+
+.numero-seccion {
+  background: #e9f3f9;
+  color: #327ba5;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 9px 12px;
+  border-radius: 8px;
+}
+
+/* FORMULARIO */
+
+.campos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+  margin-top: 25px;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+}
+
+.campo label {
+  color: #344d60;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 9px;
+}
+
+.campo input {
+  width: 100%;
+  padding: 13px 14px;
+  border: 1px solid #cfdae4;
+  border-radius: 7px;
+  background: #fafcfe;
+  color: #26384a;
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.campo input:focus {
+  border-color: #3486b2;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(52, 134, 178, 0.1);
+}
+
+.campo input.input-error {
+  border-color: #cf5555;
+  background: #fffafa;
+}
+
+.campo small {
+  color: #c33d3d;
+  margin-top: 7px;
+  font-size: 12px;
+}
+
+/* AVIÓN Y BOTÓN */
+
+.zona-inferior {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+  margin-top: 28px;
+}
+
+.ruta-viaje {
+  width: 390px;
+  max-width: 100%;
+  background: #eef6fb;
+  border: 1px solid #d7e9f4;
+  border-radius: 10px;
+  padding: 19px;
+  overflow: hidden;
+}
+
+.ruta-contenido {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.ciudad {
+  font-size: 10px;
+  color: #447e9f;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+
+.trayecto {
+  position: relative;
+  flex: 1;
+  height: 32px;
+  min-width: 80px;
+  display: flex;
+  align-items: center;
+}
+
+.linea-ruta {
+  width: 100%;
+  border-top: 2px dashed #91bdd5;
+}
+
+.punto-inicio,
+.punto-final {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  top: 12px;
+  border-radius: 50%;
+  background: #397ca5;
+}
+
+.punto-inicio {
+  left: 0;
+}
+
+.punto-final {
+  right: 0;
+}
+
+.avion-animado {
+  position: absolute;
+  top: -2px;
+  left: 0;
+  color: #246b9a;
+  font-size: 26px;
+  line-height: 32px;
+  z-index: 2;
+  animation: volar 6s linear infinite;
+}
+
+@keyframes volar {
+  0% {
+    left: 0;
+  }
+
+  100% {
+    left: calc(100% - 26px);
+  }
+}
+
+.ruta-viaje p {
+  text-align: center;
+  color: #62829a;
+  font-size: 12px;
+  margin: 12px 0 0;
+}
+
+.acciones {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.acciones button {
+  background: #246b9a;
+  color: white;
+  border: none;
+  border-radius: 7px;
+  padding: 14px 27px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.acciones button:hover:not(:disabled) {
+  background: #175779;
+}
+
+.acciones button:disabled {
+  background: #afbdc8;
+  cursor: not-allowed;
+}
+
+.nota-formulario {
+  color: #8796a3;
+  font-size: 12px;
+  margin: 20px 0 0;
+}
+
+/* MENSAJE DE CONFIRMACIÓN */
+
+.mensaje-exito {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  background: #e6f5ec;
+  color: #246d43;
+  border: 1px solid #c9e8d5;
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin-bottom: 22px;
+  font-size: 14px;
+}
+
+.mensaje-exito button {
+  background: transparent;
+  border: none;
+  color: #246d43;
+  font-size: 23px;
+  cursor: pointer;
+}
+
+/* ESTADÍSTICAS */
+
+.estadisticas {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin: 26px 0;
+}
+
+.estadistica {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  padding: 22px;
+  border-radius: 9px;
+  background: #edf4f9;
+  border: 1px solid #e0ebf2;
+}
+
+.estadistica span {
+  color: #58768c;
+  font-size: 13px;
+}
+
+.estadistica strong {
+  font-size: 30px;
+  color: #173a55;
+}
+
+.estadistica small {
+  color: #8093a1;
+  font-size: 12px;
+}
+
+.estadistica.activa {
+  background: #edf8f1;
+  border-color: #dceee3;
+}
+
+.estadistica.activa strong {
+  color: #2c8050;
+}
+
+.estadistica.cancelada {
+  background: #fff1f0;
+  border-color: #f3e0df;
+}
+
+.estadistica.cancelada strong {
+  color: #b64b45;
+}
+
+/* FILTROS */
+
+.barra-tabla {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.barra-tabla h3 {
+  color: #173a55;
+  font-size: 17px;
+  margin: 0;
+}
+
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+
+.filtros button {
+  background: white;
+  border: 1px solid #cbdbe6;
+  color: #4a6376;
+  border-radius: 6px;
+  padding: 9px 17px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.filtros button.seleccionado {
+  background: #246b9a;
+  color: white;
+  border-color: #246b9a;
+}
+
+/* TABLA */
+
+.tabla-contenedor {
+  width: 100%;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  min-width: 920px;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+th,
+td {
+  padding: 14px 10px;
+  text-align: left;
+  border-bottom: 1px solid #e5edf3;
+}
+
+th {
+  background: #edf4f8;
+  color: #36536a;
+  font-weight: 600;
+}
+
+tbody tr:hover {
+  background: #f8fbfd;
+}
+
+.estado {
+  display: inline-block;
+  background: #e0f2e7;
+  color: #267848;
+  padding: 6px 11px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.estado.estado-cancelado {
+  background: #fde7e7;
+  color: #b43c3c;
+}
+
+.acciones-tabla {
+  white-space: nowrap;
+}
+
+.btn-cancelar,
+.btn-eliminar {
+  border: none;
+  border-radius: 5px;
+  padding: 8px 11px;
+  margin: 3px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.btn-cancelar {
+  background: #fff0d8;
+  color: #98620e;
+}
+
+.btn-eliminar {
+  background: #fde8e8;
+  color: #b43d3d;
+}
+
+.btn-cancelar:hover {
+  background: #ffe4b7;
+}
+
+.btn-eliminar:hover {
+  background: #f8d3d3;
+}
+
+.sin-registros {
+  text-align: center;
+  padding: 32px;
+  color: #8193a1;
+}
+
+/* FOOTER */
+
+footer {
+  background: #173a55;
+  color: white;
+  text-align: center;
+  padding: 23px;
+}
+
+footer p {
+  margin: 0 0 8px;
+  font-size: 13px;
+}
+
+footer small {
+  color: #bfd2e0;
+  font-size: 12px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+
+  .barra {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  nav {
+    gap: 14px;
+  }
+
+  .campos,
+  .estadisticas {
+    grid-template-columns: 1fr;
+  }
+
+  .zona-inferior {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .ruta-viaje {
+    width: 100%;
+  }
+
+  .acciones button {
+    width: 100%;
+  }
+
+  .tarjeta {
+    padding: 20px;
+  }
+
+  .bienvenida h1 {
+    font-size: 26px;
+  }
+
+  .contenedor {
+    padding: 25px 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquesina span,
+  .avion-animado {
+    animation: none;
+  }
+}

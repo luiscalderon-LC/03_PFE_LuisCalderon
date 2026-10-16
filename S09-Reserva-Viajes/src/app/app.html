@@ -1,0 +1,396 @@
+
+<header class="encabezado" id="inicio">
+
+  <div class="barra">
+    <div class="marca">
+      <div class="marca-icono">✈</div>
+
+      <div>
+        <h2>Reserva de Viajes</h2>
+        <p>Tu próxima aventura comienza aquí</p>
+      </div>
+    </div>
+
+    <nav>
+      <a href="#inicio">Inicio</a>
+      <a href="#nueva-reserva">Nueva reserva</a>
+      <a href="#gestion">Gestión de reservas</a>
+    </nav>
+  </div>
+
+  <div class="marquesina">
+    <span>Sistema de registro de reservas turísticas</span>
+  </div>
+
+</header>
+
+<main class="contenedor">
+
+  <section class="bienvenida">
+    <span class="etiqueta">SISTEMA DE RESERVAS</span>
+    <h1>Reserva tu próximo viaje</h1>
+    <p>
+      Registra tus datos y organiza tus viajes
+      de manera fácil, rápida y segura.
+    </p>
+  </section>
+
+  <div class="mensaje-exito" *ngIf="mensajeExito">
+    <span>{{ mensajeExito }}</span>
+
+    <button type="button" (click)="cerrarMensaje()">
+      ×
+    </button>
+  </div>
+
+  <!-- FORMULARIO REACTIVO -->
+
+  <section class="tarjeta" id="nueva-reserva">
+
+    <div class="titulo-seccion">
+      <div>
+        <h2>Nueva reserva</h2>
+        <p>Completa los datos para registrar tu viaje.</p>
+      </div>
+
+      <span class="numero-seccion">01</span>
+    </div>
+
+    <form [formGroup]="formulario" (ngSubmit)="guardar()">
+
+      <div class="campos">
+
+        <!-- NOMBRE -->
+
+        <div class="campo">
+          <label for="nombre">Nombre del pasajero *</label>
+
+          <input
+            id="nombre"
+            type="text"
+            formControlName="nombre"
+            placeholder="Ingresa tu nombre completo"
+            [class.input-error]="f['nombre'].touched && f['nombre'].invalid">
+
+          <small
+            *ngIf="f['nombre'].touched && f['nombre'].hasError('required')">
+            El nombre es obligatorio.
+          </small>
+
+          <small
+            *ngIf="f['nombre'].touched && f['nombre'].hasError('minlength')">
+            El nombre debe tener mínimo 4 caracteres.
+          </small>
+        </div>
+
+        <!-- DESTINO -->
+
+        <div class="campo">
+          <label for="destino">Destino turístico *</label>
+
+          <input
+            id="destino"
+            type="text"
+            formControlName="destino"
+            placeholder="Ej. Cusco, Arequipa, Piura"
+            [class.input-error]="f['destino'].touched && f['destino'].invalid">
+
+          <small
+            *ngIf="f['destino'].touched && f['destino'].hasError('required')">
+            El destino es obligatorio.
+          </small>
+
+          <small
+            *ngIf="f['destino'].touched && f['destino'].hasError('minlength')">
+            El destino debe tener mínimo 4 caracteres.
+          </small>
+        </div>
+
+        <!-- FECHA -->
+
+        <div class="campo">
+          <label for="fecha">Fecha de salida *</label>
+
+          <input
+            id="fecha"
+            type="date"
+            formControlName="fecha"
+            [min]="fechaMinima"
+            [class.input-error]="f['fecha'].touched && f['fecha'].invalid">
+
+          <small
+            *ngIf="f['fecha'].touched && f['fecha'].hasError('required')">
+            Selecciona una fecha de salida.
+          </small>
+
+          <small
+            *ngIf="f['fecha'].touched && f['fecha'].hasError('fechaPasada')">
+            No puedes seleccionar una fecha anterior a hoy.
+          </small>
+        </div>
+
+        <!-- PASAJES -->
+
+        <div class="campo">
+          <label for="pasajes">Cantidad de pasajes *</label>
+
+          <input
+            id="pasajes"
+            type="number"
+            formControlName="pasajes"
+            min="1"
+            max="5"
+            placeholder="De 1 a 5"
+            [class.input-error]="f['pasajes'].touched && f['pasajes'].invalid">
+
+          <small
+            *ngIf="f['pasajes'].touched && f['pasajes'].hasError('required')">
+            La cantidad de pasajes es obligatoria.
+          </small>
+
+          <small
+            *ngIf="f['pasajes'].touched &&
+            (f['pasajes'].hasError('min') || f['pasajes'].hasError('max'))">
+            Solo puedes reservar entre 1 y 5 pasajes.
+          </small>
+        </div>
+
+        <!-- CELULAR -->
+
+        <div class="campo">
+          <label for="celular">Número de celular *</label>
+
+          <input
+            id="celular"
+            type="tel"
+            formControlName="celular"
+            placeholder="Ej. 987654321"
+            maxlength="9"
+            [class.input-error]="f['celular'].touched && f['celular'].invalid">
+
+          <small
+            *ngIf="f['celular'].touched && f['celular'].hasError('required')">
+            El número de celular es obligatorio.
+          </small>
+
+          <small
+            *ngIf="f['celular'].touched && f['celular'].hasError('pattern')">
+            Ingresa un celular válido de 9 dígitos.
+          </small>
+        </div>
+
+        <!-- CORREO -->
+
+        <div class="campo">
+          <label for="correo">Correo electrónico *</label>
+
+          <input
+            id="correo"
+            type="email"
+            formControlName="correo"
+            placeholder="Ej. cliente@gmail.com"
+            [class.input-error]="f['correo'].touched && f['correo'].invalid">
+
+          <small
+            *ngIf="f['correo'].touched && f['correo'].hasError('required')">
+            El correo electrónico es obligatorio.
+          </small>
+
+          <small
+            *ngIf="f['correo'].touched && f['correo'].hasError('email')">
+            Ingresa un correo electrónico válido.
+          </small>
+        </div>
+
+      </div>
+
+      <!-- AVIÓN ANIMADO Y BOTÓN -->
+
+      <div class="zona-inferior">
+
+        <div class="ruta-viaje">
+
+          <div class="ruta-contenido">
+
+            <span class="ciudad">ORIGEN</span>
+
+            <div class="trayecto">
+              <span class="punto-inicio"></span>
+              <span class="linea-ruta"></span>
+
+              <span class="avion-animado">✈</span>
+
+              <span class="punto-final"></span>
+            </div>
+
+            <span class="ciudad">DESTINO</span>
+
+          </div>
+
+          <p>Tu próximo destino te espera 🫵</p>
+
+        </div>
+
+        <div class="acciones">
+          <button
+            type="submit"
+            [disabled]="formulario.invalid">
+            + Guardar reserva
+          </button>
+        </div>
+
+      </div>
+
+      <p class="nota-formulario">
+        * Todos los campos son obligatorios.
+      </p>
+
+    </form>
+
+  </section>
+
+  <!-- GESTIÓN DE RESERVAS -->
+
+  <section class="tarjeta" id="gestion">
+
+    <div class="titulo-seccion">
+      <div>
+        <h2>Gestión de reservas</h2>
+        <p>Consulta, administra y cancela las reservas registradas.</p>
+      </div>
+
+      <span class="numero-seccion">02</span>
+    </div>
+
+    <div class="estadisticas">
+
+      <div class="estadistica">
+        <span>Total de reservas</span>
+        <strong>{{ reservas.length }}</strong>
+        <small>Registros realizados</small>
+      </div>
+
+      <div class="estadistica activa">
+        <span>Reservas activas</span>
+        <strong>{{ totalActivas }}</strong>
+        <small>Reservas confirmadas</small>
+      </div>
+
+      <div class="estadistica cancelada">
+        <span>Reservas canceladas</span>
+        <strong>{{ totalCanceladas }}</strong>
+        <small>Reservas anuladas</small>
+      </div>
+
+    </div>
+
+    <div class="barra-tabla">
+
+      <h3>Listado de pasajeros</h3>
+
+      <div class="filtros">
+
+        <button
+          type="button"
+          (click)="cambiarFiltro('Todas')"
+          [class.seleccionado]="filtro === 'Todas'">
+          Todas
+        </button>
+
+        <button
+          type="button"
+          (click)="cambiarFiltro('Activa')"
+          [class.seleccionado]="filtro === 'Activa'">
+          Activas
+        </button>
+
+        <button
+          type="button"
+          (click)="cambiarFiltro('Cancelada')"
+          [class.seleccionado]="filtro === 'Cancelada'">
+          Canceladas
+        </button>
+
+      </div>
+
+    </div>
+
+    <div class="tabla-contenedor">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>N.º</th>
+            <th>Pasajero</th>
+            <th>Destino</th>
+            <th>Fecha</th>
+            <th>Pasajes</th>
+            <th>Celular</th>
+            <th>Correo</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr *ngFor="let reserva of reservasFiltradas">
+
+            <td>{{ reserva.id }}</td>
+            <td>{{ reserva.nombre }}</td>
+            <td>{{ reserva.destino }}</td>
+            <td>{{ reserva.fecha | date:'dd/MM/yyyy' }}</td>
+            <td>{{ reserva.pasajes }}</td>
+            <td>{{ reserva.celular }}</td>
+            <td>{{ reserva.correo }}</td>
+
+            <td>
+              <span
+                class="estado"
+                [class.estado-cancelado]="reserva.estado === 'Cancelada'">
+                {{ reserva.estado }}
+              </span>
+            </td>
+
+            <td class="acciones-tabla">
+
+              <button
+                type="button"
+                class="btn-cancelar"
+                *ngIf="reserva.estado === 'Activa'"
+                (click)="cancelar(reserva.id)">
+                Cancelar
+              </button>
+
+              <button
+                type="button"
+                class="btn-eliminar"
+                (click)="eliminar(reserva.id)">
+                Eliminar
+              </button>
+
+            </td>
+
+          </tr>
+
+          <tr *ngIf="reservasFiltradas.length === 0">
+            <td colspan="9" class="sin-registros">
+              Todavía no hay reservas para mostrar.
+            </td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </section>
+
+</main>
+
+<footer>
+  <p>Reserva de Viajes | Sistema de gestión turística ✈️</p>
+  <small>Proyecto académico LC - Luis Calderón</small>
+</footer>

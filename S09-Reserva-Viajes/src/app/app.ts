@@ -3,14 +3,54 @@ import { Component } from '@angular/core';
 import {
   AbstractControl,
   ValidationErrors,
+  ValidatorFn,
   FormBuilder,
   FormGroup,
   Validators
 } from '@angular/forms';
 
+// Validador personalizado: evita textos con solo espacios
+export function sinEspaciosBlancos(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const valor = control.value;
+
+    if (valor === null || valor === undefined || valor === '') {
+      return null;
+    }
+
+    return String(valor).trim().length === 0
+      ? { sinEspacios: true }
+      : null;
+  };
+}
+
+// Validador personalizado: impide fechas anteriores a hoy
+export function fechaNoPasada(
+  control: AbstractControl
+): ValidationErrors | null {
+
+  if (!control.value) {
+    return null;
+  }
+
+  const hoy = new Date();
+
+  const fechaActual = [
+    hoy.getFullYear(),
+    String(hoy.getMonth() + 1).padStart(2, '0'),
+    String(hoy.getDate()).padStart(2, '0')
+  ].join('-');
+
+  return control.value < fechaActual
+    ? { fechaPasada: true }
+    : null;
+}
+
+// Estructura de una reserva
 interface Reserva {
   id: number;
   nombre: string;
+  documento: string;
   destino: string;
   fecha: string;
   pasajes: number;
@@ -41,32 +81,49 @@ export class App {
 
     this.formulario = this.fb.group({
 
+      // Nombre obligatorio, mínimo 4 caracteres
       nombre: ['', [
         Validators.required,
-        Validators.minLength(4)
+        Validators.minLength(4),
+        Validators.maxLength(50),
+        sinEspaciosBlancos()
       ]],
 
+      // DNI o pasaporte alfanumérico
+      documento: ['', [
+        Validators.required,
+        Validators.pattern(/^[a-zA-Z0-9]{8,12}$/)
+      ]],
+
+      // Destino obligatorio, mínimo 4 caracteres
       destino: ['', [
         Validators.required,
-        Validators.minLength(4)
+        Validators.minLength(4),
+        Validators.maxLength(60),
+        sinEspaciosBlancos()
       ]],
 
+      // Fecha actual o futura
       fecha: ['', [
         Validators.required,
-        this.fechaNoPasada
+        fechaNoPasada
       ]],
 
+      // Cantidad de pasajes de 1 a 10
       pasajes: [1, [
         Validators.required,
         Validators.min(1),
-        Validators.max(5)
+        Validators.max(10),
+        Validators.pattern(/^[0-9]+$/)
       ]],
 
+      // Celular de exactamente 9 dígitos
       celular: ['', [
         Validators.required,
         Validators.pattern(/^[0-9]{9}$/)
       ]],
 
+      // Correo electrónico válido
       correo: ['', [
         Validators.required,
         Validators.email
@@ -75,10 +132,24 @@ export class App {
     });
   }
 
+  // Acceso a los controles desde HTML
   get f() {
     return this.formulario.controls;
   }
 
+  // Fecha mínima permitida
+  get fechaMinima(): string {
+
+    const hoy = new Date();
+
+    return [
+      hoy.getFullYear(),
+      String(hoy.getMonth() + 1).padStart(2, '0'),
+      String(hoy.getDate()).padStart(2, '0')
+    ].join('-');
+  }
+
+  // Guardar una reserva
   guardar(): void {
 
     if (this.formulario.invalid) {
@@ -91,6 +162,7 @@ export class App {
     const nuevaReserva: Reserva = {
       id: this.siguienteId++,
       nombre: datos.nombre.trim(),
+      documento: datos.documento.trim().toUpperCase(),
       destino: datos.destino.trim(),
       fecha: datos.fecha,
       pasajes: Number(datos.pasajes),
@@ -106,8 +178,10 @@ export class App {
 
     this.filtro = 'Todas';
 
+    // Limpiar el formulario después del registro
     this.formulario.reset({
       nombre: '',
+      documento: '',
       destino: '',
       fecha: '',
       pasajes: 1,
@@ -116,6 +190,7 @@ export class App {
     });
   }
 
+  // Cancelar una reserva
   cancelar(id: number): void {
 
     const reserva = this.reservas.find(
@@ -123,6 +198,7 @@ export class App {
     );
 
     if (reserva && reserva.estado === 'Activa') {
+
       reserva.estado = 'Cancelada';
 
       this.mensajeExito =
@@ -130,6 +206,7 @@ export class App {
     }
   }
 
+  // Eliminar una reserva
   eliminar(id: number): void {
 
     this.reservas = this.reservas.filter(
@@ -140,12 +217,14 @@ export class App {
       'El registro fue eliminado correctamente.';
   }
 
+  // Cambiar el filtro de reservas
   cambiarFiltro(
     nuevoFiltro: 'Todas' | 'Activa' | 'Cancelada'
   ): void {
     this.filtro = nuevoFiltro;
   }
 
+  // Mostrar reservas según el filtro
   get reservasFiltradas(): Reserva[] {
 
     if (this.filtro === 'Todas') {
@@ -157,47 +236,23 @@ export class App {
     );
   }
 
+  // Contar reservas activas
   get totalActivas(): number {
     return this.reservas.filter(
       r => r.estado === 'Activa'
     ).length;
   }
 
+  // Contar reservas canceladas
   get totalCanceladas(): number {
     return this.reservas.filter(
       r => r.estado === 'Cancelada'
     ).length;
   }
 
+  // Cerrar mensaje de confirmación
   cerrarMensaje(): void {
     this.mensajeExito = '';
   }
-  get fechaMinima(): string {
-  const hoy = new Date();
-
-  return [
-    hoy.getFullYear(),
-    String(hoy.getMonth() + 1).padStart(2, '0'),
-    String(hoy.getDate()).padStart(2, '0')
-  ].join('-');
-}
-
-fechaNoPasada(control: AbstractControl): ValidationErrors | null {
-  if (!control.value) {
-    return null;
-  }
-
-  const hoy = new Date();
-
-  const fechaActual = [
-    hoy.getFullYear(),
-    String(hoy.getMonth() + 1).padStart(2, '0'),
-    String(hoy.getDate()).padStart(2, '0')
-  ].join('-');
-
-  return control.value < fechaActual
-    ? { fechaPasada: true }
-    : null;
-}
 
 }

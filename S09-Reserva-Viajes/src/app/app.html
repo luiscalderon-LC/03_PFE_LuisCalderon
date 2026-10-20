@@ -1,4 +1,3 @@
-
 <header class="encabezado" id="inicio">
 
   <div class="barra">
@@ -81,6 +80,18 @@
             *ngIf="f['nombre'].touched && f['nombre'].hasError('minlength')">
             El nombre debe tener mínimo 4 caracteres.
           </small>
+          <small *ngIf="f['nombre'].touched && f['nombre'].hasError('maxlength')">El nombre no debe superar 50 caracteres.</small>
+          <small *ngIf="f['nombre'].touched && f['nombre'].hasError('sinEspacios')">El nombre no puede contener solo espacios.</small>
+        </div>
+
+        <!-- DOCUMENTO -->
+        <div class="campo">
+          <label for="documento">DNI / Pasaporte *</label>
+          <input id="documento" type="text" formControlName="documento"
+            placeholder="Ej. 12345678 o AB12345678"
+            [class.input-error]="f['documento'].touched && f['documento'].invalid">
+          <small *ngIf="f['documento'].touched && f['documento'].hasError('required')">El DNI o pasaporte es obligatorio.</small>
+          <small *ngIf="f['documento'].touched && f['documento'].hasError('pattern')">Ingresa entre 8 y 12 letras o números, sin espacios ni símbolos.</small>
         </div>
 
         <!-- DESTINO -->
@@ -104,6 +115,8 @@
             *ngIf="f['destino'].touched && f['destino'].hasError('minlength')">
             El destino debe tener mínimo 4 caracteres.
           </small>
+          <small *ngIf="f['destino'].touched && f['destino'].hasError('maxlength')">El destino no debe superar 60 caracteres.</small>
+          <small *ngIf="f['destino'].touched && f['destino'].hasError('sinEspacios')">El destino no puede contener solo espacios.</small>
         </div>
 
         <!-- FECHA -->
@@ -139,8 +152,8 @@
             type="number"
             formControlName="pasajes"
             min="1"
-            max="5"
-            placeholder="De 1 a 5"
+            max="10"
+            placeholder="De 1 a 10"
             [class.input-error]="f['pasajes'].touched && f['pasajes'].invalid">
 
           <small
@@ -151,8 +164,9 @@
           <small
             *ngIf="f['pasajes'].touched &&
             (f['pasajes'].hasError('min') || f['pasajes'].hasError('max'))">
-            Solo puedes reservar entre 1 y 5 pasajes.
+            Solo puedes reservar entre 1 y 10 pasajes.
           </small>
+          <small *ngIf="f['pasajes'].touched && f['pasajes'].hasError('pattern')">La cantidad debe ser un número entero.</small>
         </div>
 
         <!-- CELULAR -->
@@ -323,6 +337,7 @@
           <tr>
             <th>N.º</th>
             <th>Pasajero</th>
+            <th>DNI / Pasaporte</th>
             <th>Destino</th>
             <th>Fecha</th>
             <th>Pasajes</th>
@@ -339,6 +354,7 @@
 
             <td>{{ reserva.id }}</td>
             <td>{{ reserva.nombre }}</td>
+            <td>{{ reserva.documento }}</td>
             <td>{{ reserva.destino }}</td>
             <td>{{ reserva.fecha | date:'dd/MM/yyyy' }}</td>
             <td>{{ reserva.pasajes }}</td>
@@ -375,7 +391,7 @@
           </tr>
 
           <tr *ngIf="reservasFiltradas.length === 0">
-            <td colspan="9" class="sin-registros">
+            <td colspan="10" class="sin-registros">
               Todavía no hay reservas para mostrar.
             </td>
           </tr>
